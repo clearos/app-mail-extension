@@ -113,16 +113,10 @@ class OpenLDAP_Group_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        // Add internal attributes
-        //------------------------
+        if (! isset($group_info['mail']['distribution_list']))
+            $group_info['mail']['distribution_list'] = TRUE;
 
-        // $group_info['mail'] = $group_info['group_name'] . '@example.com';
-        $group_info['distribution_list'] = TRUE;
-
-        // Convert to LDAP attributes
-        //---------------------------
-
-        $attributes = Utilities::convert_array_to_attributes($group_info, $this->info_map, FALSE);
+        $attributes = Utilities::convert_array_to_attributes($group_info['mail'], $this->info_map, FALSE);
 
         return $attributes;
     }
@@ -163,11 +157,6 @@ class OpenLDAP_Group_Extension extends Engine
 
         $info = array();
 
-        /*
-        if (isset($attributes['mail']))
-            $info['mail'] = $attributes['mail'][0];
-        */
-
         if (isset($attributes['clearMailDistributionList']))
             $info['distribution_list'] = $attributes['clearMailDistributionList'][0];
 
@@ -202,16 +191,11 @@ class OpenLDAP_Group_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        // Return if nothing needs to be done
-        //-----------------------------------
-
         if (! isset($group_info['extensions']['mail']))
             return array();
 
-        // Convert to LDAP attributes
-        //---------------------------
-
         $attributes = Utilities::convert_array_to_attributes($group_info['extensions']['mail'], $this->info_map, TRUE);
+        $attributes['objectClass'][] = 'clearMailGroupAccount';
 
         return $attributes;
     }

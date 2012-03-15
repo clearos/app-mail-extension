@@ -52,19 +52,15 @@ clearos_load_language('mail_extension');
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
-use \clearos\apps\base\Country as Country;
 use \clearos\apps\base\Engine as Engine;
+use \clearos\apps\openldap_directory\Accounts_Driver as Accounts_Driver;
 use \clearos\apps\openldap_directory\OpenLDAP as OpenLDAP;
 use \clearos\apps\openldap_directory\Utilities as Utilities;
-use \clearos\apps\organization\Organization as Organization;
-use \clearos\apps\users\User_Factory as User_Factory;
 
-clearos_load_library('base/Country');
 clearos_load_library('base/Engine');
+clearos_load_library('openldap_directory/Accounts_Driver');
 clearos_load_library('openldap_directory/OpenLDAP');
 clearos_load_library('openldap_directory/Utilities');
-clearos_load_library('organization/Organization');
-clearos_load_library('users/User_Factory');
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
@@ -203,24 +199,66 @@ class OpenLDAP_User_Extension extends Engine
     }
 
     ///////////////////////////////////////////////////////////////////////////////
+    // S P E C I A L  M E T H O D S
+    ///////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Validation routine for alias list.
+     *
+     * @param string $username username 
+     * @param array  $aliases  alias list
+     *
+     * @return string error message if alias list is invalid
+     */
+
+    public function is_unique_alias($username, $alias)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        // Mail aliases, users, and groups are all intertwined and must be unique.
+        // This scenario just doesn't fit well with the existing framework, so we
+        // kludge it a bit here.
+
+        $accounts = new Accounts_Driver();
+
+        if ($message = $accounts->is_unique_id_message($alias, $username))
+            return $message;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
     // V A L I D A T I O N   M E T H O D S
     ///////////////////////////////////////////////////////////////////////////////
 
     /**
      * Validation routine for alias.
      *
-     * @param string $alias alias
+     * @param string  $alias            alias
+     * @param boolean $check_uniqueness check for uniqueness
+     * @param boolean $check_reserved   check for reserved IDs
      *
      * @return string error message if alias is invalid
      */
 
-    public function validate_alias($alias)
+    public function validate_alias($alias, $check_uniqueness = FALSE, $check_reserved = TRUE)
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        $user = User_Factory::create('notused');
+        if (!preg_match("/^([a-z0-9_\-\.\$]+)$/", $alias))
+            return lang('mail_extension_mail_alias_is_invalid');
 
-        return $user->validate_username($alias);
+        if ($check_reserved) {
+            $accounts = new Accounts_Driver();
+
+            if ($message = $accounts->is_reserved_id_message($alias))
+                return $message;
+        }
+
+        if ($check_uniqueness) {
+            $accounts = new Accounts_Driver();
+
+            if ($message = $accounts->is_unique_id_message($alias))
+                return $message;
+        }
     }
 
     /**
