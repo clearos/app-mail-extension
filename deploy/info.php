@@ -31,7 +31,7 @@ $app['core_only'] = TRUE;
 $app['core_requires'] = array(
     'app-openldap-directory-core',
     'app-organization',
-    'app-users',
+    'app-users >= 1:1.0.8',
 );
 
 $app['core_file_manifest'] = array( 

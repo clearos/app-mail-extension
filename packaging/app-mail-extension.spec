@@ -17,7 +17,7 @@ Summary: Mail Extension - APIs and install
 Requires: app-base-core
 Requires: app-openldap-directory-core
 Requires: app-organization
-Requires: app-users
+Requires: app-users >= 1:1.0.8
 
 %description core
 The Mail Extension extends the directory with user mail and alias attributes.
