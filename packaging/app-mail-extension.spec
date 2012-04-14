@@ -1,9 +1,9 @@
 
 Name: app-mail-extension
 Epoch: 1
-Version: 1.0.10
+Version: 1.1.0
 Release: 1%{dist}
-Summary: Mail Extension - APIs and install
+Summary: Mail Extension - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Source: app-mail-extension-%{version}.tar.gz
@@ -13,7 +13,7 @@ Buildarch: noarch
 The Mail Extension extends the directory with user mail and alias attributes.
 
 %package core
-Summary: Mail Extension - APIs and install
+Summary: Mail Extension - Core
 Requires: app-base-core
 Requires: app-openldap-directory-core
 Requires: app-organization
