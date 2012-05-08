@@ -1,7 +1,7 @@
 
 Name: app-mail-extension
 Epoch: 1
-Version: 1.1.0
+Version: 1.1.1
 Release: 1%{dist}
 Summary: Mail Extension - Core
 License: LGPLv3
@@ -17,7 +17,7 @@ Summary: Mail Extension - Core
 Requires: app-base-core
 Requires: app-openldap-directory-core
 Requires: app-organization
-Requires: app-users >= 1:1.0.8
+Requires: app-users
 
 %description core
 The Mail Extension extends the directory with user mail and alias attributes.

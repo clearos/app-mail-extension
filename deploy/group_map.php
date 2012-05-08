@@ -47,21 +47,6 @@ clearos_load_language('base');
 // C O N F I G
 ///////////////////////////////////////////////////////////////////////////////
 
-// TODO: enable when required
-/*
-    'mail' => array(
-        'type' => 'string',
-        'field_type' => 'text',
-        'field_priority' => 'hidden',
-        'required' => FALSE,
-        'validator' => 'validate_email',
-        'validator_class' => 'mail_extension/OpenLDAP_Group_Extension',
-        'description' => lang('mail_extension_email'),
-        'object_class' => 'clearMailGroupAccount',
-        'attribute' => 'mail'
-    ),
-*/
-
 $info_map = array(
     'distribution_list' => array(
         'type' => 'integer',
@@ -76,5 +61,16 @@ $info_map = array(
         'description' => lang('mail_extension_distribution_list'),
         'object_class' => 'clearMailGroupAccount',
         'attribute' => 'clearMailDistributionList'
+    ),
+    'mail' => array(
+        'type' => 'string',
+        'field_type' => 'text',
+        'field_priority' => 'read_only',
+        'required' => FALSE,
+        'validator' => 'validate_email',
+        'validator_class' => 'mail_extension/OpenLDAP_Group_Extension',
+        'description' => lang('mail_extension_email'),
+        'object_class' => 'clearMailGroupAccount',
+        'attribute' => 'mail'
     ),
 );
