@@ -117,9 +117,6 @@ class OpenLDAP_User_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        if (empty($user_info['extensions']['mail']))
-            return array();
-
         // Set defaults
         //-------------
 
@@ -178,12 +175,6 @@ class OpenLDAP_User_Extension extends Engine
     public function update_attributes_hook($user_info, $ldap_object)
     {
         clearos_profile(__METHOD__, __LINE__);
-
-        // Return if nothing needs to be done
-        //-----------------------------------
-
-        if (! isset($user_info['extensions']['mail']))
-            return array();
 
         // Set defaults
         //-------------
