@@ -53,13 +53,13 @@ clearos_load_language('mail_extension');
 ///////////////////////////////////////////////////////////////////////////////
 
 use \clearos\apps\base\Engine as Engine;
+use \clearos\apps\mail\Base_Mail as Base_Mail;
 use \clearos\apps\openldap_directory\Accounts_Driver as Accounts_Driver;
-use \clearos\apps\openldap_directory\OpenLDAP as OpenLDAP;
 use \clearos\apps\openldap_directory\Utilities as Utilities;
 
 clearos_load_library('base/Engine');
+clearos_load_library('mail/Base_Mail');
 clearos_load_library('openldap_directory/Accounts_Driver');
-clearos_load_library('openldap_directory/OpenLDAP');
 clearos_load_library('openldap_directory/Utilities');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -120,7 +120,10 @@ class OpenLDAP_User_Extension extends Engine
         // Set defaults
         //-------------
 
-        $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . OpenLDAP::get_base_internet_domain();
+        $mail = new Base_Mail();
+        $domain = $mail->get_domain();
+
+        $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . $domain;
 
         // Convert to LDAP attributes
         //---------------------------
@@ -144,6 +147,27 @@ class OpenLDAP_User_Extension extends Engine
         clearos_profile(__METHOD__, __LINE__);
 
         $info = Utilities::convert_attributes_to_array($attributes, $this->info_map);
+
+        return $info;
+    }
+
+    /**
+     * Returns user info defaults hash array.
+     *
+     * @param string $username username
+     *
+     * @return array user info defaults array
+     * @throws Engine_Exception
+     */
+
+    public function get_info_defaults_hook($username)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $mail = new Base_Mail();
+        $domain = $mail->get_domain();
+
+        $info['mail'] = $username . '@' . $domain;
 
         return $info;
     }
@@ -179,7 +203,10 @@ class OpenLDAP_User_Extension extends Engine
         // Set defaults
         //-------------
 
-        $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . OpenLDAP::get_base_internet_domain();
+        $mail = new Base_Mail();
+        $domain = $mail->get_domain();
+
+        $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . $domain;
 
         // Convert to LDAP attributes
         //---------------------------
@@ -197,7 +224,7 @@ class OpenLDAP_User_Extension extends Engine
      * Validation routine for alias list.
      *
      * @param string $username username 
-     * @param array  $aliases  alias list
+     * @param array  $alias    alias
      *
      * @return string error message if alias list is invalid
      */

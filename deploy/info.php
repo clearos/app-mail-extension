@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'mail_extension';
-$app['version'] = '1.1.1';
+$app['version'] = '1.1.4';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -29,8 +29,8 @@ $app['menu_enabled'] = FALSE;
 $app['core_only'] = TRUE;
 
 $app['core_requires'] = array(
+    'app-mail-core',
     'app-openldap-directory-core',
-    'app-organization',
     'app-users',
 );
 

@@ -53,11 +53,11 @@ clearos_load_language('mail_extension');
 ///////////////////////////////////////////////////////////////////////////////
 
 use \clearos\apps\base\Engine as Engine;
-use \clearos\apps\openldap_directory\OpenLDAP as OpenLDAP;
+use \clearos\apps\mail\Base_Mail as Base_Mail;
 use \clearos\apps\openldap_directory\Utilities as Utilities;
 
 clearos_load_library('base/Engine');
-clearos_load_library('openldap_directory/OpenLDAP');
+clearos_load_library('mail/Base_Mail');
 clearos_load_library('openldap_directory/Utilities');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -116,9 +116,14 @@ class OpenLDAP_Group_Extension extends Engine
         clearos_profile(__METHOD__, __LINE__);
 
         if (! isset($group_info['extensions']['mail']['distribution_list']))
-            $group_info['extensions']['mail']['distribution_list'] = FALSE;
+            $group_info['extensions']['mail']['distribution_list'] = 0;
+        else
+            $group_info['extensions']['mail']['distribution_list'] = ($group_info['extensions']['mail']['distribution_list']) ? 1 : 0;
 
-        $group_info['extensions']['mail']['mail'] = $group_info['core']['group_name'] . '@' . OpenLDAP::get_base_internet_domain();
+        $mail = new Base_Mail();
+        $domain = $mail->get_domain();
+
+        $group_info['extensions']['mail']['mail'] = $group_info['core']['group_name'] . '@' . $domain;
 
         $attributes = Utilities::convert_array_to_attributes($group_info['extensions']['mail'], $this->info_map, FALSE);
 
@@ -138,8 +143,11 @@ class OpenLDAP_Group_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        $info['distribution_list'] = TRUE;
-        $info['mail'] = $group . '@' . OpenLDAP::get_base_internet_domain();
+        $mail = new Base_Mail();
+        $domain = $mail->get_domain();
+
+        $info['distribution_list'] = 1;
+        $info['mail'] = $group . '@' . $domain;
 
         return $info;
     }
