@@ -198,11 +198,14 @@ class OpenLDAP_Group_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        if (! isset($group_info['extensions']['mail']))
-            return array();
+        if (empty($group_info['extensions']['mail']['mail'])) {
+            $mail = new Base_Mail();
+            $domain = $mail->get_domain();
+
+            $group_info['extensions']['mail']['mail'] = $group_info['core']['group_name'] . '@' . $domain;
+        }
 
         $attributes = Utilities::convert_array_to_attributes($group_info['extensions']['mail'], $this->info_map, TRUE);
-        $attributes['objectClass'][] = 'clearMailGroupAccount';
 
         return $attributes;
     }
