@@ -1,7 +1,7 @@
 
 Name: app-mail-extension
 Epoch: 1
-Version: 1.1.4
+Version: 1.1.6
 Release: 1%{dist}
 Summary: Mail Extension - Core
 License: LGPLv3
