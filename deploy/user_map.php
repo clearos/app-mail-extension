@@ -3,9 +3,9 @@
 /**
  * Mail OpenLDAP user extension.
  *
- * @category   Apps
- * @package    Mail_Extension
- * @subpackage Configuration
+ * @category   apps
+ * @package    mail-extension
+ * @subpackage configuration
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2012 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
