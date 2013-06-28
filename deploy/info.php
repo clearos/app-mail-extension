@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'mail_extension';
-$app['version'] = '1.2.2';
+$app['version'] = '1.4.36';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -37,5 +37,13 @@ $app['core_requires'] = array(
 $app['core_file_manifest'] = array( 
    'mail.php' => array(
         'target' => '/var/clearos/openldap_directory/extensions/71_mail.php'
+    ),
+    'mail_extension.conf' => array(
+        'target' => '/etc/clearos/mail_extension.conf',
+        'mode' => '0644',
+        'owner' => 'root',
+        'group' => 'root',
+        'config' => TRUE,
+        'config_params' => 'noreplace',
     ),
 );

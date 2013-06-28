@@ -123,7 +123,8 @@ class OpenLDAP_User_Extension extends Engine
         $mail = new Base_Mail();
         $domain = $mail->get_domain();
 
-        $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . $domain;
+        if (empty($user_info['extensions']['mail']['mail']))
+            $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . $domain;
 
         // Convert to LDAP attributes
         //---------------------------
@@ -206,7 +207,8 @@ class OpenLDAP_User_Extension extends Engine
         $mail = new Base_Mail();
         $domain = $mail->get_domain();
 
-        $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . $domain;
+        if (empty($user_info['extensions']['mail']['mail']))
+            $user_info['extensions']['mail']['mail'] = $ldap_object['uid'] . '@' . $domain;
 
         // Convert to LDAP attributes
         //---------------------------

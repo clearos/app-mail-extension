@@ -46,11 +46,16 @@ clearos_load_language('mail_extension');
 // C O N F I G
 ///////////////////////////////////////////////////////////////////////////////
 
+if (file_exists('/etc/clearos/mail_extension.conf'))
+    require_once '/etc/clearos/mail_extension.conf';
+
+$mail_priority = isset($mail_visibility) ? $mail_visibility : 'read_only';
+
 $info_map = array(
     'mail' => array(
         'type' => 'string',
         'field_type' => 'text',
-        'field_priority' => 'read_only',
+        'field_priority' => $mail_priority,
         'required' => FALSE,
         'validator' => 'validate_email',
         'validator_class' => 'mail_extension/OpenLDAP_User_Extension',

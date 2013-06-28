@@ -1,7 +1,7 @@
 
 Name: app-mail-extension
 Epoch: 1
-Version: 1.2.2
+Version: 1.4.36
 Release: 1%{dist}
 Summary: Mail Extension - Core
 License: LGPLv3
@@ -33,6 +33,7 @@ mkdir -p -m 755 %{buildroot}/usr/clearos/apps/mail_extension
 cp -r * %{buildroot}/usr/clearos/apps/mail_extension/
 
 install -D -m 0644 packaging/mail.php %{buildroot}/var/clearos/openldap_directory/extensions/71_mail.php
+install -D -m 0644 packaging/mail_extension.conf %{buildroot}/etc/clearos/mail_extension.conf
 
 %post core
 logger -p local6.notice -t installer 'app-mail-extension-core - installing'
@@ -62,3 +63,4 @@ exit 0
 /usr/clearos/apps/mail_extension/language
 /usr/clearos/apps/mail_extension/libraries
 /var/clearos/openldap_directory/extensions/71_mail.php
+%config(noreplace) /etc/clearos/mail_extension.conf
