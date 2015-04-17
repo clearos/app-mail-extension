@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'mail_extension';
-$app['version'] = '2.0.18';
+$app['version'] = '2.0.24';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -47,3 +47,5 @@ $app['core_file_manifest'] = array(
         'config_params' => 'noreplace',
     ),
 );
+
+$app['delete_dependency'] = array();
