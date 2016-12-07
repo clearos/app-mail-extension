@@ -74,4 +74,15 @@ $info_map = array(
         'object_class' => 'clearMailAccount',
         'attribute' => 'clearMailAliases'
     ),
+
+    'forwarders' => array(
+        'type' => 'string_array',
+        'field_type' => 'text_array',
+        'required' => FALSE,
+        'validator' => 'validate_forwarder',
+        'validator_class' => 'mail_extension/OpenLDAP_User_Extension',
+        'description' => lang('mail_extension_forwarders'),
+        'object_class' => 'clearMailAccount',
+        'attribute' => 'clearMailForwarders'
+    ),
 );

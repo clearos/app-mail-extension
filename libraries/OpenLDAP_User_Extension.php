@@ -264,7 +264,7 @@ class OpenLDAP_User_Extension extends Engine
         clearos_profile(__METHOD__, __LINE__);
 
         if (!preg_match("/^([a-z0-9_\-\.\$]+)$/", $alias))
-            return lang('mail_extension_mail_alias_is_invalid');
+            return lang('mail_extension_mail_alias_invalid');
 
         if ($check_reserved) {
             $accounts = new Accounts_Driver();
@@ -295,5 +295,21 @@ class OpenLDAP_User_Extension extends Engine
 
         if (! preg_match("/^([a-z0-9_\-\.\$]+)@/", $email))
             return lang('mail_extension_email_invalid');
+    }
+
+    /**
+     * Validation routine for forwarders.
+     *
+     * @param string $forwarder forwarder
+     *
+     * @return string error message if forwarder is invalid
+     */
+
+    public function validate_forwarder($forwarder)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if (! preg_match("/^([a-z0-9_\-\.\$]+)@/", $forwarder))
+            return lang('mail_extension_mail_forwarder_invalid');
     }
 }
