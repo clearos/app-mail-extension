@@ -35,7 +35,7 @@ $app['core_requires'] = array(
 );
 
 $app['core_file_manifest'] = array( 
-   'mail.php' => array(
+    'mail.php' => array(
         'target' => '/var/clearos/openldap_directory/extensions/71_mail.php'
     ),
     'mail_extension.conf' => array(
