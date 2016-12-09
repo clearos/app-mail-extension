@@ -74,8 +74,12 @@ $info_map = array(
         'object_class' => 'clearMailAccount',
         'attribute' => 'clearMailAliases'
     ),
+);
 
-    'forwarders' => array(
+// Experimental
+
+if (file_exists('/var/clearos/mail_routing/forwarders')) {
+    $info_map['forwarders'] = array(
         'type' => 'string_array',
         'field_type' => 'text_array',
         'required' => FALSE,
@@ -84,5 +88,5 @@ $info_map = array(
         'description' => lang('mail_extension_forwarders'),
         'object_class' => 'clearMailAccount',
         'attribute' => 'clearMailForwarders'
-    ),
-);
+    );
+}
