@@ -5,8 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'mail_extension';
-$app['version'] = '2.3.1';
-$app['release'] = '1';
+$app['version'] = '2.5.0';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
 $app['license'] = 'GPLv3';
@@ -31,7 +30,7 @@ $app['core_only'] = TRUE;
 $app['core_requires'] = array(
     'app-mail-core',
     'app-openldap-directory-core',
-    'app-users',
+    'app-users-core',
 );
 
 $app['core_file_manifest'] = array( 
